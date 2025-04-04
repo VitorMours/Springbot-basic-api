@@ -10,6 +10,7 @@ import com.webserver.diorailway.services.UserService;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.NoSuchElementException;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,6 +24,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
+    }
+
+    @Override
+    public List<UserModel> findAll(){
+        return userRepository.findAll();
     }
 
     @Override

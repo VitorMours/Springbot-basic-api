@@ -112,8 +112,7 @@ public class UserModel {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserModel)) return false;
-        UserModel userModel = (UserModel) o;
+        if (!(o instanceof UserModel userModel)) return false;
         return id != null && id.equals(userModel.id);
     }
 

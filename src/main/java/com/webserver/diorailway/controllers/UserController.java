@@ -15,6 +15,8 @@ import com.webserver.diorailway.services.UserService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/users")
@@ -34,6 +36,14 @@ public class UserController {
         return ResponseEntity.created(location).body(userCreated);
     }
 
+
+    @GetMapping
+    public ResponseEntity<List<UserModel>> findAll(){
+
+        List<UserModel> users_list = userService.findAll();
+        return ResponseEntity.ok().body(users_list);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserModel> readUser(@PathVariable long id){
         UserModel user = userService.findById(id);
@@ -42,9 +52,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable Long id, @RequestBody UserModel newUser){
-        // O id é definido automaticamente no novoUser antes da atualização
-        newUser.setId(id);  // O id é importante para encontrar o usuário correto no banco
-        var updatedUser = userService.update(id, newUser);  // Atualiza o usuário
+        newUser.setId(id);
+        var updatedUser = userService.update(id, newUser);
         return ResponseEntity.ok(updatedUser);
     }
 
